@@ -16,14 +16,15 @@ spec:
       hostNetwork: true
       hostPID: true
       containers:
-      - image: mpreu/k8s-device-plugin-socketcan:latest
+      - image: k8s-device-plugin-socketcan:latest
         args: ["-v", "3", "-logtostderr"]
+        env:
+        - name: SOCKETCAN_DEVICES
+          value: "can0 can1"
         imagePullPolicy: IfNotPresent
         name: k8s-device-plugin-socketcan
         securityContext:
           privileged: true
-          capabilities:
-            drop: ["ALL"]
         resources:
         volumeMounts:
           - name: var-run
